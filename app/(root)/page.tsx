@@ -1,10 +1,11 @@
+import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
 const Home = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-gray-900">
-      <Button>Click Me</Button>
+    <div className="flex min-h-screen home-wrapper">
+      <Header />
     </div>
   );
 };
