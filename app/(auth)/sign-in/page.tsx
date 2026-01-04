@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import InputField from "@/components/forms/InputField";
 import FooterLink from "@/components/forms/FooterLink";
+import { toast } from "sonner";
+import { signInWithEmail, signUpWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
   const {
@@ -18,16 +21,19 @@ const SignIn = () => {
     mode: "onBlur",
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: SignInFormData) => {
     try {
-      // const result = await signInWithEmail(data);
-      // if(result.success) router.push('/');
+      console.log("Inside Sign In", data);
+      const result = await signInWithEmail(data);
+      if (result.success) router.push("/");
       console.log(data);
     } catch (e) {
       console.error(e);
-      // toast.error('Sign in failed', {
-      //     description: e instanceof Error ? e.message : 'Failed to sign in.'
-      // })
+      toast.error("Sign in failed", {
+        description: e instanceof Error ? e.message : "Failed to sign in.",
+      });
     }
   };
 
@@ -44,7 +50,7 @@ const SignIn = () => {
           error={errors.email}
           validation={{
             required: "Email is required",
-            pattern: /^\w+@\w+\.\w+$/,
+            // pattern: /^\w+@\w+\.\w+$/,
           }}
         />
 
